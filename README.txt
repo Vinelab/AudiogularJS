@@ -1,4 +1,3 @@
-
 Unzip
 cd [to the directory]
 npm install
