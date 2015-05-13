@@ -7,6 +7,15 @@ module.exports = function (grunt) {
          options: {
             port: 9000
          }
+      },
+      typescript: {
+         base: {
+            src: ['app/**/*.ts'],
+            dest: 'src/audiogularjs.js',
+            options: {
+               watch: true
+            }
+         }
       }
    });
 };
