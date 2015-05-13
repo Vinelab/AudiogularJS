@@ -1,5 +1,7 @@
+"use strict";
+
 (function () {
-    'use strict';
+    "use strict";
     angular.module("audiogularjs", []);
     angular.module("audiogularjs").factory("AudiogularjsFactory", AudiogularjsFactory);
     angular.module("audiogularjs").directive("audioPlay", audioPlay);
@@ -25,7 +27,7 @@
             this.audioObj.load();
         }
     }
-    audioPlay.$inject = ['AudiogularjsFactory'];
+    audioPlay.$inject = ["AudiogularjsFactory"];
     function audioPlay(AudiogularjsFactory) {
         return {
             restrict: "EA",
@@ -34,40 +36,39 @@
             },
             replace: true,
             require: "audioPlay",
-            template: '<div ng-class="audioPlayCtrl.isPlayed()"><div>',
+            template: "<div ng-class=\"audioPlayCtrl.isPlayed()\"><div>",
             bindToController: true,
-            controller: function () {
+            controller: function controller() {
                 var self = this;
                 self.isPlayed = isPlayed;
                 self.playPause = playPause;
                 function isPlayed() {
                     if (AudiogularjsFactory.audioObj.src === self.src && !AudiogularjsFactory.audioObj.paused) {
-                        return 'stopMe';
-                    }
-                    else {
-                        return 'playMe';
+                        return "stopMe";
+                    } else {
+                        return "playMe";
                     }
                 }
                 function playPause() {
                     if (AudiogularjsFactory.audioObj.src === self.src && !AudiogularjsFactory.audioObj.paused) {
                         AudiogularjsFactory.pauseAudio();
-                    }
-                    else {
+                    } else {
                         AudiogularjsFactory.pauseAudio();
                         AudiogularjsFactory.playAudio(self.src);
                     }
                 }
             },
-            controllerAs: 'audioPlayCtrl',
-            link: function (scope, element, attrs, ctrls) {
+            controllerAs: "audioPlayCtrl",
+            link: function link(scope, element, attrs, ctrls) {
                 element.on("click", function () {
                     ctrls.playPause();
                     scope.$apply();
                 });
-                scope.$on('$destroy', function () {
+                scope.$on("$destroy", function () {
                     AudiogularjsFactory.resetAudio();
                 });
             }
         };
     }
 })();
+//# sourceMappingURL=audiogularjs.js.map
