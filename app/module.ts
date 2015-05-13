@@ -1,8 +1,10 @@
+import angular = "./vendors/angular.js";
 (function () {
    'use strict';
    angular.module("audiogularjs", []);
    angular.module("audiogularjs").factory("AudiogularjsFactory", AudiogularjsFactory);
    angular.module("audiogularjs").directive("audioPlay", audioPlay);
+
 
    function AudiogularjsFactory() {
       var data = {
