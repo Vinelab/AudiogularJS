@@ -8,10 +8,6 @@
     "grunt-serve": "^0.1.6",
     "load-grunt-tasks": "^3.1.0"
   },
-  "devDependencies": {
-    "grunt-typescript": "^0.6.1",
-    "typescript": "^1.4.1"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
