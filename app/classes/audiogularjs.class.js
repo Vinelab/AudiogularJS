@@ -1,37 +1,26 @@
 /**
  * This class is responsible for managing the audio,
  * acts as service in audiogularjs component
- *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 class Audiogularjs {
 
     /**
-     * construct the class
-     *
+     * construct the class and
+     * Initialise the audio object using HTML Audio Element Javascript object
      * @var {Audio} the audio object being managed, by default init the Audio
      */
-    constructor(audio = initAudio()) {
-        this.audio = audio;
-    }
-
-    /**
-     * Initialise the audio object using HTML Audio Element Javascript object
-     *
-     * @returns {HTMLAudioElement}
-     */
-    initAudio() {
-        return new Audio();
+    constructor(audio) {
+        this.audio = new Audio();
     }
 
     /**
      * Play the audio by source
-     *
      * @param src
      */
     playAudioBySource(src) {
-        setAudio(src);
-        playAudio();
+        this.setAudio(src);
+        this.playAudio();
     }
 
     /**

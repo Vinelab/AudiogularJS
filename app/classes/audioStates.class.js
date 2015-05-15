@@ -1,24 +1,26 @@
 /**
  * This class is responsible of managing the Audio State
- *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 class AudioStates extends Audiogularjs {
 
 
-    constructor(audio) {
-        const STATE_PLAYING = 'playing';
-        const STATE_STOPPED = 'paused';
+    constructor() {
 
-        const CSS_PREFIX = 'audiogularjs';
+        super();
+        this.audio = new Audio();
 
-        const STATE_MAP = {
+
+        this.STATE_PLAYING = 'playing';
+        this.STATE_STOPPED = 'stopped';
+
+        this.CSS_PREFIX = 'audiogularjs';
+
+        this.STATE_MAP = {
             playing: 'is-playing',
             paused: 'is-paused',
             stopped: 'is-stopped'
         };
-
-        super(audio);
     }
 
     /**
@@ -58,16 +60,15 @@ class AudioStates extends Audiogularjs {
         } else {
             state = this.getStoppedUIStateClass();
         }
-
         return state;
     }
 
     getPlayingUIStateClass() {
-        return this.getClassForState(STATE_PLAYING);
+        return this.getClassForState(this.STATE_PLAYING);
     }
 
     getStoppedUIStateClass() {
-        return this.getClassForState(STATE_STOPPED);
+        return this.getClassForState(this.STATE_STOPPED);
     }
 
     getClassForState(state) {

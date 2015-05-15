@@ -10,15 +10,18 @@ function audiogularjsPlay(AudiogularjsService) {
         },
         replace: true,
         require: "audiogularjsPlay",
-        template: '<div ng-class="audioPlayCtrl.isPlayed()"><div>',
+        template: '<div ng-class="audioPlayCtrl.getUIStateClass()"><div>',
         bindToController: true,
         controller: function () {
             var self = this;
-            self.isPlaying = AudiogularjsService.getUIStateClass;
+            self.getUIStateClass = getUIStateClass;
             self.playPause = playPause;
 
+            function getUIStateClass(){
+                return AudiogularjsService.getUIStateClass(self.src);
+            }
             function playPause() {
-                if (AudiogularjsService.isPlaying()) {
+                if (AudiogularjsService.isPlaying(self.src)) {
                     AudiogularjsService.stopAudio();
                 } else {
                     AudiogularjsService.stopAudio();
