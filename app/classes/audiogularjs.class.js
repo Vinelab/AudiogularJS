@@ -10,7 +10,7 @@ class Audiogularjs {
      * Initialise the audio object using HTML Audio Element Javascript object
      * @var {Audio} the audio object being managed, by default init the Audio
      */
-    constructor(audio) {
+    constructor() {
         this.audio = new Audio();
     }
 

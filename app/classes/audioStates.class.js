@@ -8,7 +8,6 @@ class AudioStates extends Audiogularjs {
     constructor() {
 
         super();
-        this.audio = new Audio();
 
 
         this.STATE_PLAYING = 'playing';
