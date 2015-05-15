@@ -23,7 +23,7 @@ var Audiogularjs = (function () {
      * @var {Audio} the audio object being managed, by default init the Audio
      */
 
-    function Audiogularjs(audio) {
+    function Audiogularjs() {
         _classCallCheck(this, Audiogularjs);
 
         this.audio = new Audio();
@@ -91,7 +91,6 @@ var AudioStates = (function (_Audiogularjs) {
         _classCallCheck(this, AudioStates);
 
         _get(Object.getPrototypeOf(AudioStates.prototype), 'constructor', this).call(this);
-        this.audio = new Audio();
 
         this.STATE_PLAYING = 'playing';
         this.STATE_STOPPED = 'stopped';
@@ -175,8 +174,7 @@ var AudioStates = (function (_Audiogularjs) {
 
 angular.module('audiogularjs').directive('audiogularjsPlay', audiogularjsPlay);
 
-audiogularjsPlay.$inject = ['AudiogularjsService'];
-function audiogularjsPlay(AudiogularjsService) {
+function audiogularjsPlay() {
     return {
         restrict: 'EA',
         scope: {
@@ -186,34 +184,39 @@ function audiogularjsPlay(AudiogularjsService) {
         require: 'audiogularjsPlay',
         template: '<div ng-class="audioPlayCtrl.getUIStateClass()"><div>',
         bindToController: true,
-        controller: function controller() {
-            var self = this;
-            self.getUIStateClass = getUIStateClass;
-            self.playPause = playPause;
-
-            function getUIStateClass() {
-                return AudiogularjsService.getUIStateClass(self.src);
-            }
-            function playPause() {
-                if (AudiogularjsService.isPlaying(self.src)) {
-                    AudiogularjsService.stopAudio();
-                } else {
-                    AudiogularjsService.stopAudio();
-                    AudiogularjsService.playAudioBySource(self.src);
-                }
-            }
-        },
+        controller: AudiogularjsServiceController,
         controllerAs: 'audioPlayCtrl',
-        link: function link(scope, element, attrs, ctrls) {
-            element.on('click', function () {
-                ctrls.playPause();
-                scope.$apply();
-            });
-            scope.$on('$destroy', function () {
-                AudiogularjsService.resetAudio();
-            });
-        }
+        link: AudiogularjsServiceLink
     };
+}
+
+AudiogularjsServiceController.$inject = ['AudiogularjsService'];
+function AudiogularjsServiceController(AudiogularjsService) {
+    var self = this;
+    self.getUIStateClass = getUIStateClass;
+    self.playPause = playPause;
+
+    function getUIStateClass() {
+        return AudiogularjsService.getUIStateClass(self.src);
+    }
+
+    function playPause() {
+        if (AudiogularjsService.isPlaying(self.src)) {
+            AudiogularjsService.stopAudio();
+        } else {
+            AudiogularjsService.stopAudio();
+            AudiogularjsService.playAudioBySource(self.src);
+        }
+    }
+}
+function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
+    element.on('click', function () {
+        ctrls.playPause();
+        scope.$apply();
+    });
+    scope.$on('$destroy', function () {
+        AudiogularjsService.resetAudio();
+    });
 }
 angular.module('audiogularjs').service('AudiogularjsService', AudioStates);
 //# sourceMappingURL=audiogularjs.js.map
