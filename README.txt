@@ -1,6 +1,7 @@
 Unzip
 cd [to the directory]
 npm install
+bower install
 
 grunt
 to build the project
