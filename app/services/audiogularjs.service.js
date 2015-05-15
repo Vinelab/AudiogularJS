@@ -1,0 +1,1 @@
+angular.module("audiogularjs").factory("AudiogularjsService", Audiogularjs);
