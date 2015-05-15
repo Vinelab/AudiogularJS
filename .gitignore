@@ -1,4 +1,6 @@
 /vendors
 /node_modules
+/bower_components
+/temp
 /.idea
 .idea
