@@ -1,4 +1,4 @@
-angular.module("audiogularjs").directive("audiogularjsPlay", AudiogularjsService);
+angular.module("audiogularjs").directive("audiogularjsPlay", audiogularjsPlay);
 
 
 audiogularjsPlay.$inject = ['AudiogularjsService'];

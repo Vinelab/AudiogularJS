@@ -189,7 +189,7 @@ var AudioStates = (function (_Audiogularjs) {
     return AudioStates;
 })(Audiogularjs);
 
-angular.module('audiogularjs').directive('audiogularjsPlay', AudiogularjsService);
+angular.module('audiogularjs').directive('audiogularjsPlay', audiogularjsPlay);
 
 audiogularjsPlay.$inject = ['AudiogularjsService'];
 function audiogularjsPlay(AudiogularjsService) {
