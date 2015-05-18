@@ -25,28 +25,34 @@ class AudiogularController {
     getCssClass() {
         let state;
         if (this.AudiogularjsService.state.isPlaying(this.src)) {
-            state = this.getPlayingUIStateClass();
+            state = this.getPlayingCssClass();
         } else {
-            state = this.getStoppedUIStateClass();
+            state = this.getStoppedCssClass();
         }
         return state;
     }
 
-    getPlayingUIStateClass() {
+    getPlayingCssClass() {
         return this.getClassForState(this.AudiogularjsService.state.STATE_PLAYING);
     }
 
-    getStoppedUIStateClass() {
+    getStoppedCssClass() {
         return this.getClassForState(this.AudiogularjsService.state.STATE_STOPPED);
+    }
+
+    getPausedCssClass() {
+        return this.getClassForState(this.AudiogularjsService.state.STATE_PAUSED);
     }
 
     getClassForState(state) {
         return `${ this.CSS_PREFIX }-${ this.STATE_MAP[state] }`;
     }
 
-    //return this.AudiogularjsService.state.getUIStateClass(this.src);
-
-    playPause() {
+    /**
+     * Play or stop the Audio depending on its state.
+     * @return {string}
+     */
+    playStop() {
         if (this.AudiogularjsService.state.isPlaying(this.src)) {
             this.AudiogularjsService.stopAudio();
         } else {

@@ -11,6 +11,7 @@ class AudiogularState {
 
         this.STATE_PLAYING = 'playing';
         this.STATE_STOPPED = 'stopped';
+        this.STATE_PAUSED = 'paused';
     }
 
     /**
