@@ -2,13 +2,12 @@
  * This class is responsible of managing the Audio State
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class AudioStates extends Audiogularjs {
+class AudioStates {
 
 
-    constructor() {
+    constructor(audio) {
 
-        super();
-
+        this.audio = audio;
 
         this.STATE_PLAYING = 'playing';
         this.STATE_STOPPED = 'stopped';

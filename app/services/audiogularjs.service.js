@@ -1,1 +1,1 @@
-angular.module("audiogularjs").service("AudiogularjsService", AudioStates);
+angular.module("audiogularjs").service("AudiogularjsService", Audiogularjs);

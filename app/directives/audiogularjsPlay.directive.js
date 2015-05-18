@@ -23,11 +23,11 @@ function AudiogularjsServiceController(AudiogularjsService) {
     self.playPause = playPause;
 
     function getUIStateClass() {
-        return AudiogularjsService.getUIStateClass(self.src);
+        return AudiogularjsService.state.getUIStateClass(self.src);
     }
 
     function playPause() {
-        if (AudiogularjsService.isPlaying(self.src)) {
+        if (AudiogularjsService.state.isPlaying(self.src)) {
             AudiogularjsService.stopAudio();
         } else {
             AudiogularjsService.stopAudio();

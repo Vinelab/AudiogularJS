@@ -12,6 +12,7 @@ class Audiogularjs {
      */
     constructor() {
         this.audio = new Audio();
+        this.state = new AudioStates(this.audio);
     }
 
     /**
