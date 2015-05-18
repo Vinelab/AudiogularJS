@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'temp/app.js': ['src/app.module.js', 'src/classes/*.js', 'src/**/*.js']
+                    'temp/app.js': ['src/app.module.js', 'src/classes/AudiogularState.js', 'src/classes/*.js', 'src/**/*.js']
                 }
             }
         },

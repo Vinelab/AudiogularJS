@@ -5,9 +5,7 @@
 class AudiogularState {
 
 
-    constructor(audio) {
-
-        this.audio = audio;
+    constructor() {
 
         this.STATE_PLAYING = 'playing';
         this.STATE_STOPPED = 'stopped';
@@ -15,31 +13,16 @@ class AudiogularState {
     }
 
     /**
-     * Determine whether the giving src is for
-     * an audio currently playing
-     * @return {Boolean}
-     * @param src of the audio
-     * @returns {boolean}
+     * Get the state of the audio of the given src
+     * with comparison of the current audio
+     *
+     * @param currentAudio
+     * @param src
+     * @returns {string}
      */
-    isPlaying(src) {
-        let isPlaying = false;
-        if(this.audio.src === src && !this.audio.paused){
-            isPlaying = true;
-        }
-        return isPlaying;
+    getState(currentAudio, src) {
+        return (currentAudio.src === src && !currentAudio.paused) ? this.STATE_PLAYING : this.STATE_STOPPED;
     }
-
-    /**
-     * Determine whether the giving src is not for
-     * an audio currently playing
-     * @return {Boolean}
-     * @param src of the audio
-     * @returns {boolean}
-     */
-    isStopped(src) {
-        return !this.isPlaying(src);
-    }
-
 
 
 }

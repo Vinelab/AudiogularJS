@@ -11,8 +11,8 @@ class AudiogularPlayer {
      * @var {Audio} the audio object being managed, by default init the Audio
      */
     constructor() {
-        this.audio = new Audio();
-        this.state = new AudiogularState(this.audio);
+        this.audio = new Audiogular();
+        this.state = new AudiogularState();
     }
 
     /**
@@ -53,4 +53,7 @@ class AudiogularPlayer {
         this.audio.load();
     }
 
+    isPlaying(src) {
+        return this.state.getState(this.audio, src) === this.state.STATE_PLAYING;
+    }
 }
