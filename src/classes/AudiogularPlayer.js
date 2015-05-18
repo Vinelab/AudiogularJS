@@ -20,8 +20,8 @@ class AudiogularPlayer {
      * @param src
      */
     playBySource(src) {
-        this.setAudio(src);
-        this.playAudio();
+        this.setSource(src);
+        this.play();
     }
 
     /**
