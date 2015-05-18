@@ -19,10 +19,10 @@ function audiogularjsPlay() {
 AudiogularController.$inject = ['AudiogularjsService'];
 function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
     element.on("click", function () {
-        ctrls.playStop();
+        ctrls.playOrStop();
         scope.$apply();
     });
     scope.$on('$destroy', function () {
-        AudiogularjsService.resetAudio();
+        AudiogularjsService.reset();
     });
 }

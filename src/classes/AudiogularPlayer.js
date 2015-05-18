@@ -19,7 +19,7 @@ class AudiogularPlayer {
      * Play the audio by source
      * @param src
      */
-    playAudioBySource(src) {
+    playBySource(src) {
         this.setAudio(src);
         this.playAudio();
     }
@@ -27,14 +27,14 @@ class AudiogularPlayer {
     /**
      * Set the source for the audio object
      */
-    setAudio(src) {
+    setSource(src) {
         this.audio.src = src;
     }
 
     /**
      * Play the audio
      */
-    playAudio() {
+    play() {
         this.audio.play();
     }
 
@@ -42,14 +42,14 @@ class AudiogularPlayer {
     /**
      * Stop tha audio
      */
-    stopAudio() {
+    stop() {
         this.audio.pause();
     }
 
     /**
      * Reset the audio
      */
-    resetAudio() {
+    reset() {
         this.audio.load();
     }
 
