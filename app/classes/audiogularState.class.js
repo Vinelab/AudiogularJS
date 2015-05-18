@@ -2,7 +2,7 @@
  * This class is responsible of managing the Audio State
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class AudioStates {
+class AudiogularState {
 
 
     constructor(audio) {

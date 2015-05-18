@@ -3,7 +3,7 @@
  * acts as service in audiogularjs component
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class Audiogularjs {
+class AudiogularPlayer {
 
     /**
      * construct the class and

@@ -8,33 +8,15 @@ function audiogularjsPlay() {
         },
         replace: true,
         require: "audiogularjsPlay",
-        template: '<div ng-class="audioPlayCtrl.getUIStateClass()"><div>',
+        template: '<div ng-class="audioPlayCtrl.getCssClass()"><div>',
         bindToController: true,
-        controller: AudiogularjsServiceController,
+        controller: AudiogularController,
         controllerAs: 'audioPlayCtrl',
         link: AudiogularjsServiceLink
     };
 }
 
-AudiogularjsServiceController.$inject = ['AudiogularjsService'];
-function AudiogularjsServiceController(AudiogularjsService) {
-    var self = this;
-    self.getUIStateClass = getUIStateClass;
-    self.playPause = playPause;
-
-    function getUIStateClass() {
-        return AudiogularjsService.state.getUIStateClass(self.src);
-    }
-
-    function playPause() {
-        if (AudiogularjsService.state.isPlaying(self.src)) {
-            AudiogularjsService.stopAudio();
-        } else {
-            AudiogularjsService.stopAudio();
-            AudiogularjsService.playAudioBySource(self.src);
-        }
-    }
-}
+AudiogularController.$inject = ['AudiogularjsService'];
 function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
     element.on("click", function () {
         ctrls.playPause();
