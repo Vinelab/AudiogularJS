@@ -26,7 +26,7 @@
 - `grunt serve` *to run the serve on port 9000*
 - go to browser http://localhost:9000/demo/index.html *to check the demo*
 
-## how to use it
+## How To Use It
 
 ```html
 <!-- Include the audiogularjs -->
