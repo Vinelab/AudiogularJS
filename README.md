@@ -1,6 +1,6 @@
-# Audiogularjs
+# AudiogularJS
 
-**Audiogularjs** is an audio player.
+**AudiogularJS** is an audio player/controller for [AngularJS](http://angular.io).
 
 ## Dependency
 
