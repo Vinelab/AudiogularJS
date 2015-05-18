@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'temp/app.js': ['app/app.module.js', 'app/classes/audiogularjs.class.js', 'app/classes/*.js', 'app/**/*.js']
+                    'temp/app.js': ['src/app.module.js', 'src/classes/*.js', 'src/**/*.js']
                 }
             }
         },
@@ -27,14 +27,14 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'src/audiogularjs.js': 'temp/app.js'
+                    'dist/audiogularjs.js': 'temp/app.js'
                 }
             }
         },
 
         /* watch changes on js files in  app directory and run the tasks : concat - babel above*/
         watch: {
-            files: ['app/**/*.js'],
+            files: ['src/**/*.js'],
             tasks: ['concat', 'babel']
         }
 

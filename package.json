@@ -1,7 +1,7 @@
 {
   "name": "audiogularjs",
   "version": "1.0.0",
-  "description": "audio angular js",
+  "description": "audio player/controller for",
   "main": "gruntFile.js",
   "dependencies": {
     "grunt": "^0.4.5",
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "joseph el alam <joseph@vinelab.com>",
+  "author": "Joseph El Alam <joseph@vinelab.com>",
   "license": "ISC",
   "devDependencies": {
     "grunt-babel": "^5.0.0",
