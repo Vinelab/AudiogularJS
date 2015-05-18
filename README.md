@@ -14,7 +14,6 @@
 - grunt-babel
 - grunt-contrib-concat
 - grunt-contrib-watch
-- 
  
 ## Installation
 
