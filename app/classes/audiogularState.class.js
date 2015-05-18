@@ -11,14 +11,6 @@ class AudiogularState {
 
         this.STATE_PLAYING = 'playing';
         this.STATE_STOPPED = 'stopped';
-
-        this.CSS_PREFIX = 'audiogularjs';
-
-        this.STATE_MAP = {
-            playing: 'is-playing',
-            paused: 'is-paused',
-            stopped: 'is-stopped'
-        };
     }
 
     /**
@@ -47,30 +39,6 @@ class AudiogularState {
         return !this.isPlaying(src);
     }
 
-    /**
-     * Get the CSS class name for the current state of the audio.
-     * @return {string}
-     */
-    getUIStateClass(src) {
-        let state;
-        if (this.isPlaying(src)) {
-            state = this.getPlayingUIStateClass();
-        } else {
-            state = this.getStoppedUIStateClass();
-        }
-        return state;
-    }
 
-    getPlayingUIStateClass() {
-        return this.getClassForState(this.STATE_PLAYING);
-    }
-
-    getStoppedUIStateClass() {
-        return this.getClassForState(this.STATE_STOPPED);
-    }
-
-    getClassForState(state) {
-        return `${ this.CSS_PREFIX }-${ this.STATE_MAP[state] }`;
-    }
 
 }
