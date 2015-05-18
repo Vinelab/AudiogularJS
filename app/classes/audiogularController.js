@@ -24,7 +24,7 @@ class AudiogularController {
      */
     getCssClass() {
         let state;
-        if (this.AudiogularjsService.state.isPlaying(src)) {
+        if (this.AudiogularjsService.state.isPlaying(this.src)) {
             state = this.getPlayingUIStateClass();
         } else {
             state = this.getStoppedUIStateClass();
