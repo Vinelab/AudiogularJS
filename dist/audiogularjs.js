@@ -58,10 +58,10 @@ var Audiogular = function Audiogular() {
  */
 
 var AudiogularController = (function () {
-    function AudiogularController(AudiogularjsService, src) {
+    function AudiogularController(AudiogularService, src) {
         _classCallCheck(this, AudiogularController);
 
-        this.AudiogularjsService = AudiogularjsService;
+        this.AudiogularService = AudiogularService;
         this.state = new AudiogularState();
 
         /**
@@ -87,14 +87,16 @@ var AudiogularController = (function () {
          * @return {string}
          */
         value: function getCssClass() {
-            return this.AudiogularjsService.isPlaying(this.src) ? this.getPlayingCssClass() : this.getStoppedCssClass();
-            //let state;
-            //if (this.AudiogularjsService.isPlaying(this.src)) {
-            //    state = this.getPlayingCssClass();
-            //} else {
-            //    state = this.getStoppedCssClass();
-            //}
-            //return state;
+            //return (this.AudiogularService.isPlaying(this.src))?
+            //    this.getPlayingCssClass():
+            //    this.getStoppedCssClass();
+            var state = undefined;
+            if (this.AudiogularService.isPlaying(this.src)) {
+                state = this.getPlayingCssClass();
+            } else {
+                state = this.getStoppedCssClass();
+            }
+            return state;
         }
     }, {
         key: 'getPlayingCssClass',
@@ -125,11 +127,11 @@ var AudiogularController = (function () {
          * @return {string}
          */
         value: function playOrStop() {
-            if (this.AudiogularjsService.isPlaying(this.src)) {
-                this.AudiogularjsService.stop();
+            if (this.AudiogularService.isPlaying(this.src)) {
+                this.AudiogularService.stop();
             } else {
-                this.AudiogularjsService.stop();
-                this.AudiogularjsService.playBySource(this.src);
+                this.AudiogularService.stop();
+                this.AudiogularService.playBySource(this.src);
             }
         }
     }]);
@@ -235,7 +237,7 @@ angular.module('audiogularjs').directive('audiogularPlay', audiogularPlay);
  * @returns {{restrict: string, scope: {src: string}, replace: boolean,
   *    require: string, template: string, bindToController: boolean,
   *   controller: AudiogularController, controllerAs: string,
-  *   link: AudiogularjsServiceLink}}
+  *   link: AudiogularPlayLink}}
  */
 function audiogularPlay() {
     return {
@@ -249,7 +251,7 @@ function audiogularPlay() {
         bindToController: true,
         controller: AudiogularController,
         controllerAs: 'audioPlayCtrl',
-        link: AudiogularjsServiceLink
+        link: AudiogularPlayLink
     };
 }
 
@@ -257,7 +259,7 @@ function audiogularPlay() {
  * Inject AudiogularjsServiceto be used in
  *    the controller class
  */
-AudiogularController.$inject = ['AudiogularjsService'];
+AudiogularController.$inject = ['AudiogularService'];
 
 /**
  * The link function of audiogularPlay directive
@@ -267,7 +269,7 @@ AudiogularController.$inject = ['AudiogularjsService'];
  * @param attrs
  * @param ctrls
  */
-function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
+function AudiogularPlayLink(scope, element, attrs, ctrls) {
     element.on('click', function () {
         ctrls.playOrStop();
         scope.$apply();
@@ -276,5 +278,5 @@ function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
         AudiogularjsService.reset();
     });
 }
-angular.module('audiogularjs').service('AudiogularjsService', AudiogularPlayer);
+angular.module('audiogularjs').service('AudiogularService', AudiogularPlayer);
 //# sourceMappingURL=audiogularjs.js.map

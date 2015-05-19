@@ -6,8 +6,8 @@
  */
 class AudiogularController {
 
-    constructor(AudiogularjsService, src) {
-        this.AudiogularjsService = AudiogularjsService;
+    constructor(AudiogularService, src) {
+        this.AudiogularService = AudiogularService;
         this.state = new AudiogularState();
 
         /**
@@ -32,16 +32,16 @@ class AudiogularController {
      * @return {string}
      */
     getCssClass() {
-        return (this.AudiogularjsService.isPlaying(this.src))?
-            this.getPlayingCssClass():
-            this.getStoppedCssClass();
-        //let state;
-        //if (this.AudiogularjsService.isPlaying(this.src)) {
-        //    state = this.getPlayingCssClass();
-        //} else {
-        //    state = this.getStoppedCssClass();
-        //}
-        //return state;
+        //return (this.AudiogularService.isPlaying(this.src))?
+        //    this.getPlayingCssClass():
+        //    this.getStoppedCssClass();
+        let state;
+        if (this.AudiogularService.isPlaying(this.src)) {
+            state = this.getPlayingCssClass();
+        } else {
+            state = this.getStoppedCssClass();
+        }
+        return state;
     }
 
     getPlayingCssClass() {
@@ -66,11 +66,11 @@ class AudiogularController {
      * @return {string}
      */
     playOrStop() {
-        if (this.AudiogularjsService.isPlaying(this.src)) {
-            this.AudiogularjsService.stop();
+        if (this.AudiogularService.isPlaying(this.src)) {
+            this.AudiogularService.stop();
         } else {
-            this.AudiogularjsService.stop();
-            this.AudiogularjsService.playBySource(this.src);
+            this.AudiogularService.stop();
+            this.AudiogularService.playBySource(this.src);
         }
     }
 }
