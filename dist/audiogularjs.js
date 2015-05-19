@@ -7,6 +7,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 angular.module('audiogularjs', []);
 /**
  * This class is responsible of managing the Audio State
+ *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 
@@ -14,9 +15,9 @@ var AudiogularState = (function () {
     function AudiogularState() {
         _classCallCheck(this, AudiogularState);
 
-        this.STATE_PLAYING = 'playing';
-        this.STATE_STOPPED = 'stopped';
-        this.STATE_PAUSED = 'paused';
+        /** @const */this.STATE_PLAYING = 'playing';
+        /** @const */this.STATE_STOPPED = 'stopped';
+        /** @const */this.STATE_PAUSED = 'paused';
     }
 
     _createClass(AudiogularState, [{
@@ -24,10 +25,10 @@ var AudiogularState = (function () {
 
         /**
          * Get the state of the audio of the given src
-         * with comparison of the current audio
+         *    with comparison of the current audio
          *
-         * @param currentAudio
-         * @param src
+         * @param {sudiogular} currentAudio
+         * @param {string} src
          * @returns {string}
          */
         value: function getState(currentAudio, src) {
@@ -38,6 +39,10 @@ var AudiogularState = (function () {
     return AudiogularState;
 })();
 
+/**
+ * This class create a wrapper of the Audio Html Element
+ */
+
 var Audiogular = function Audiogular() {
     _classCallCheck(this, Audiogular);
 
@@ -47,7 +52,8 @@ var Audiogular = function Audiogular() {
 
 /**
  * This class is responsible for managing the UI,
- * acts as controller of the directive
+ *    acts as controller of the directive
+ *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 
@@ -57,30 +63,38 @@ var AudiogularController = (function () {
 
         this.AudiogularjsService = AudiogularjsService;
         this.state = new AudiogularState();
+
+        /**
+         * The src attribute directive value
+         */
         this.src = src;
 
-        this.CSS_PREFIX = 'audiogularjs';
-        this.STATE_MAP = [];
-        this.STATE_MAP[this.state.STATE_PLAYING] = 'is-playing';
-        this.STATE_MAP[this.state.STATE_PAUSED] = 'is-paused';
-        this.STATE_MAP[this.state.STATE_STOPPED] = 'is-stopped';
+        /** @const */this.CSS_PREFIX = 'audiogularjs';
+
+        /** @const */this.STATE_MAP = [];
+        /** @const */this.STATE_MAP[this.state.STATE_PLAYING] = 'is-playing';
+        /** @const */this.STATE_MAP[this.state.STATE_PAUSED] = 'is-paused';
+        /** @const */this.STATE_MAP[this.state.STATE_STOPPED] = 'is-stopped';
     }
 
     _createClass(AudiogularController, [{
         key: 'getCssClass',
 
         /**
-         * Get the CSS class name for the current state of the audio.
+         * Get the CSS class name for the current
+         *    state of the audio.
+         *
          * @return {string}
          */
         value: function getCssClass() {
-            var state = undefined;
-            if (this.AudiogularjsService.isPlaying(this.src)) {
-                state = this.getPlayingCssClass();
-            } else {
-                state = this.getStoppedCssClass();
-            }
-            return state;
+            return this.AudiogularjsService.isPlaying(this.src) ? this.getPlayingCssClass() : this.getStoppedCssClass();
+            //let state;
+            //if (this.AudiogularjsService.isPlaying(this.src)) {
+            //    state = this.getPlayingCssClass();
+            //} else {
+            //    state = this.getStoppedCssClass();
+            //}
+            //return state;
         }
     }, {
         key: 'getPlayingCssClass',
@@ -107,6 +121,7 @@ var AudiogularController = (function () {
 
         /**
          * Play or stop the Audio depending on its state.
+         *
          * @return {string}
          */
         value: function playOrStop() {
@@ -124,7 +139,8 @@ var AudiogularController = (function () {
 
 /**
  * This class is responsible for managing the audio,
- * acts as service in audiogularjs component
+ *    acts as service in audiogularjs component
+ *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 
@@ -132,7 +148,7 @@ var AudiogularPlayer = (function () {
 
     /**
      * construct the class and
-     * Initialise the audio object using HTML Audio Element Javascript object
+     *    Initialise the audio object using HTML Audio Element Javascript object
      * @var {Audio} the audio object being managed, by default init the Audio
      */
 
@@ -148,7 +164,8 @@ var AudiogularPlayer = (function () {
 
         /**
          * Play the audio by source
-         * @param src
+         *
+         * @param {string} src
          */
         value: function playBySource(src) {
             this.setSource(src);
@@ -159,6 +176,8 @@ var AudiogularPlayer = (function () {
 
         /**
          * Set the source for the audio object
+         *
+         * @param {string} src
          */
         value: function setSource(src) {
             this.audio.src = src;
@@ -192,6 +211,14 @@ var AudiogularPlayer = (function () {
         }
     }, {
         key: 'isPlaying',
+
+        /**
+         * Checks if the src is for the current
+         *    playing audio
+         *
+         * @param {string} src
+         * @returns {boolean}
+         */
         value: function isPlaying(src) {
             return this.state.getState(this.audio, src) === this.state.STATE_PLAYING;
         }
@@ -200,9 +227,17 @@ var AudiogularPlayer = (function () {
     return AudiogularPlayer;
 })();
 
-angular.module('audiogularjs').directive('audiogularjsPlay', audiogularjsPlay);
+angular.module('audiogularjs').directive('audiogularPlay', audiogularPlay);
 
-function audiogularjsPlay() {
+/**
+ * The audiogularPlay directive function
+ *
+ * @returns {{restrict: string, scope: {src: string}, replace: boolean,
+  *    require: string, template: string, bindToController: boolean,
+  *   controller: AudiogularController, controllerAs: string,
+  *   link: AudiogularjsServiceLink}}
+ */
+function audiogularPlay() {
     return {
         restrict: 'EA',
         scope: {
@@ -218,7 +253,20 @@ function audiogularjsPlay() {
     };
 }
 
+/**
+ * Inject AudiogularjsServiceto be used in
+ *    the controller class
+ */
 AudiogularController.$inject = ['AudiogularjsService'];
+
+/**
+ * The link function of audiogularPlay directive
+ *
+ * @param scope
+ * @param element
+ * @param attrs
+ * @param ctrls
+ */
 function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
     element.on('click', function () {
         ctrls.playOrStop();

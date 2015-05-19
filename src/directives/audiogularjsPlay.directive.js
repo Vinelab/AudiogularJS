@@ -1,4 +1,5 @@
 angular.module("audiogularjs").directive("audiogularPlay", audiogularPlay);
+
 /**
  * The audiogularPlay directive function
  *
@@ -22,6 +23,12 @@ function audiogularPlay() {
         link: AudiogularjsServiceLink
     };
 }
+
+/**
+ * Inject AudiogularjsServiceto be used in
+ *    the controller class
+ */
+AudiogularController.$inject = ['AudiogularjsService'];
 
 /**
  * The link function of audiogularPlay directive

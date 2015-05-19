@@ -1,9 +1,4 @@
 /**
- * Inject AudiogularjsServiceto be used in
- *    the controller class
- */
-AudiogularController.$inject = ['AudiogularjsService'];
-/**
  * This class is responsible for managing the UI,
  *    acts as controller of the directive
  *
