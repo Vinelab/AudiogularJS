@@ -44,6 +44,6 @@ function AudiogularPlayLink(scope, element, attrs, ctrls) {
         scope.$apply();
     });
     scope.$on('$destroy', function () {
-        AudiogularjsService.reset();
+        AudiogularService.reset();
     });
 }
