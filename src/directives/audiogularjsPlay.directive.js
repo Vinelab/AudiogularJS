@@ -15,7 +15,7 @@ function audiogularPlay() {
             "src": "@"
         },
         replace: true,
-        require: "audiogularjsPlay",
+        require: "audiogularPlay",
         template: '<div ng-class="audioPlayCtrl.getCssClass()"><div>',
         bindToController: true,
         controller: AudiogularController,
@@ -25,7 +25,7 @@ function audiogularPlay() {
 }
 
 /**
- * Inject AudiogularjsServiceto be used in
+ * Inject AudiogularjsService to be used in
  *    the controller class
  */
 AudiogularController.$inject = ['AudiogularService'];
