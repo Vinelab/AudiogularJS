@@ -40,5 +40,14 @@ angular.module("app", ['audiogularjs']);
 
 ```html
 <!-- Use the audiogularjs-play directive -->
-<audiogularjs-play src="http://sourceToAudio.m4a"></audiogularjs-play>
+<audiogular-play src="http://sourceToAudio.m4a"></audiogular-play>
+```
+
+```css
+.audiogularjs-is-stopped{
+/* style for the button of play (state is stopped) */
+}
+.audiogularjs-is-playing{
+/* style for the button of Stop (state is playing) */
+}
 ```
