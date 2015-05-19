@@ -1,5 +1,6 @@
 /**
  * This class is responsible of managing the Audio State
+ *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 class AudiogularState {
@@ -7,17 +8,17 @@ class AudiogularState {
 
     constructor() {
 
-        this.STATE_PLAYING = 'playing';
-        this.STATE_STOPPED = 'stopped';
-        this.STATE_PAUSED = 'paused';
+        /** @const */ this.STATE_PLAYING = 'playing';
+        /** @const */ this.STATE_STOPPED = 'stopped';
+        /** @const */ this.STATE_PAUSED = 'paused';
     }
 
     /**
      * Get the state of the audio of the given src
-     * with comparison of the current audio
+     *    with comparison of the current audio
      *
-     * @param currentAudio
-     * @param src
+     * @param {sudiogular} currentAudio
+     * @param {string} src
      * @returns {string}
      */
     getState(currentAudio, src) {

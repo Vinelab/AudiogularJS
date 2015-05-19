@@ -52,21 +52,18 @@ var Audiogular = function Audiogular() {
  */
 
 var AudiogularController = (function () {
-    function AudiogularController(AudiogularjsService, src, AudiogularState) {
+    function AudiogularController(AudiogularjsService, src) {
         _classCallCheck(this, AudiogularController);
 
         this.AudiogularjsService = AudiogularjsService;
-        //console.log(AudiogularState);
-        console.log(AudiogularjsService.state);
-        //console.log(AudiogularjsService);
-        //this.state = new AudiogularState();
+        this.state = new AudiogularState();
         this.src = src;
 
         this.CSS_PREFIX = 'audiogularjs';
         this.STATE_MAP = [];
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_PLAYING] = 'is-playing';
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_PAUSED] = 'is-paused';
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_STOPPED] = 'is-stopped';
+        this.STATE_MAP[this.state.STATE_PLAYING] = 'is-playing';
+        this.STATE_MAP[this.state.STATE_PAUSED] = 'is-paused';
+        this.STATE_MAP[this.state.STATE_STOPPED] = 'is-stopped';
     }
 
     _createClass(AudiogularController, [{
@@ -88,17 +85,17 @@ var AudiogularController = (function () {
     }, {
         key: 'getPlayingCssClass',
         value: function getPlayingCssClass() {
-            return this.getClassForState(this.AudiogularjsService.state.STATE_PLAYING);
+            return this.getClassForState(this.state.STATE_PLAYING);
         }
     }, {
         key: 'getStoppedCssClass',
         value: function getStoppedCssClass() {
-            return this.getClassForState(this.AudiogularjsService.state.STATE_STOPPED);
+            return this.getClassForState(this.state.STATE_STOPPED);
         }
     }, {
         key: 'getPausedCssClass',
         value: function getPausedCssClass() {
-            return this.getClassForState(this.AudiogularjsService.state.STATE_PAUSED);
+            return this.getClassForState(this.state.STATE_PAUSED);
         }
     }, {
         key: 'getClassForState',

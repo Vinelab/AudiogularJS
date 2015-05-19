@@ -1,51 +1,64 @@
 /**
+ * Inject AudiogularjsServiceto be used in
+ *    the controller class
+ */
+AudiogularController.$inject = ['AudiogularjsService'];
+/**
  * This class is responsible for managing the UI,
- * acts as controller of the directive
+ *    acts as controller of the directive
+ *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
 class AudiogularController {
 
-    constructor(AudiogularjsService, src, AudiogularState) {
+    constructor(AudiogularjsService, src) {
         this.AudiogularjsService = AudiogularjsService;
-        //console.log(AudiogularState);
-        console.log(AudiogularjsService.state);
-        //console.log(AudiogularjsService);
-        //this.state = new AudiogularState();
+        this.state = new AudiogularState();
+
+        /**
+         * The src attribute directive value
+         */
         this.src = src;
 
-        this.CSS_PREFIX = 'audiogularjs';
-        this.STATE_MAP = [];
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_PLAYING]= 'is-playing';
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_PAUSED]= 'is-paused';
-        this.STATE_MAP[this.AudiogularjsService.state.STATE_STOPPED]= 'is-stopped';
+        /** @const */ this.CSS_PREFIX = 'audiogularjs';
+
+        /** @const */ this.STATE_MAP = [];
+        /** @const */ this.STATE_MAP[this.state.STATE_PLAYING] = 'is-playing';
+        /** @const */ this.STATE_MAP[this.state.STATE_PAUSED] = 'is-paused';
+        /** @const */ this.STATE_MAP[this.state.STATE_STOPPED] = 'is-stopped';
 
 
     }
 
     /**
-     * Get the CSS class name for the current state of the audio.
+     * Get the CSS class name for the current
+     *    state of the audio.
+     *
      * @return {string}
      */
     getCssClass() {
-        let state;
-        if (this.AudiogularjsService.isPlaying(this.src)) {
-            state = this.getPlayingCssClass();
-        } else {
-            state = this.getStoppedCssClass();
-        }
-        return state;
+        return (this.AudiogularjsService.isPlaying(this.src))?
+            this.getPlayingCssClass():
+            this.getStoppedCssClass();
+        //let state;
+        //if (this.AudiogularjsService.isPlaying(this.src)) {
+        //    state = this.getPlayingCssClass();
+        //} else {
+        //    state = this.getStoppedCssClass();
+        //}
+        //return state;
     }
 
     getPlayingCssClass() {
-        return this.getClassForState(this.AudiogularjsService.state.STATE_PLAYING);
+        return this.getClassForState(this.state.STATE_PLAYING);
     }
 
     getStoppedCssClass() {
-        return this.getClassForState(this.AudiogularjsService.state.STATE_STOPPED);
+        return this.getClassForState(this.state.STATE_STOPPED);
     }
 
     getPausedCssClass() {
-        return this.getClassForState(this.AudiogularjsService.state.STATE_PAUSED);
+        return this.getClassForState(this.state.STATE_PAUSED);
     }
 
     getClassForState(state) {
@@ -54,6 +67,7 @@ class AudiogularController {
 
     /**
      * Play or stop the Audio depending on its state.
+     *
      * @return {string}
      */
     playOrStop() {

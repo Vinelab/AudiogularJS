@@ -1,3 +1,6 @@
+/**
+ * This class create a wrapper of the Audio Html Element
+ */
 class Audiogular {
 
     constructor() {
