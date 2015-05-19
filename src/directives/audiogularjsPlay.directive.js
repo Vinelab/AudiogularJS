@@ -6,7 +6,7 @@ angular.module("audiogularjs").directive("audiogularPlay", audiogularPlay);
  * @returns {{restrict: string, scope: {src: string}, replace: boolean,
   *    require: string, template: string, bindToController: boolean,
   *   controller: AudiogularController, controllerAs: string,
-  *   link: AudiogularjsServiceLink}}
+  *   link: AudiogularPlayLink}}
  */
 function audiogularPlay() {
     return {
@@ -20,7 +20,7 @@ function audiogularPlay() {
         bindToController: true,
         controller: AudiogularController,
         controllerAs: 'audioPlayCtrl',
-        link: AudiogularjsServiceLink
+        link: AudiogularPlayLink
     };
 }
 
@@ -28,7 +28,7 @@ function audiogularPlay() {
  * Inject AudiogularjsServiceto be used in
  *    the controller class
  */
-AudiogularController.$inject = ['AudiogularjsService'];
+AudiogularController.$inject = ['AudiogularService'];
 
 /**
  * The link function of audiogularPlay directive
@@ -38,7 +38,7 @@ AudiogularController.$inject = ['AudiogularjsService'];
  * @param attrs
  * @param ctrls
  */
-function AudiogularjsServiceLink(scope, element, attrs, ctrls) {
+function AudiogularPlayLink(scope, element, attrs, ctrls) {
     element.on("click", function () {
         ctrls.playOrStop();
         scope.$apply();
