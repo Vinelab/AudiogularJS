@@ -14,6 +14,12 @@
 - grunt-babel
 - grunt-contrib-concat
 - grunt-contrib-watch
+- karma
+- grunt-karma
+- jasmine-core
+- karma-chrome-launcher
+- karma-phantomjs-launcher
+- protractor
  
 ## Installation
 
