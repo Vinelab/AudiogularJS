@@ -17,9 +17,12 @@
     "grunt-babel": "^5.0.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.10.1",
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.12",
     "karma-jasmine": "^0.2.2",
-    "karma-phantomjs-launcher": "^0.1.4"
+    "karma-phantomjs-launcher": "^0.1.4",
+    "protractor": "^2.0.0"
   }
 }

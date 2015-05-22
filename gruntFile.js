@@ -14,10 +14,12 @@ module.exports = function (grunt) {
         /* concat all the es6 files and put in temp/app.js */
         concat: {
             main: {
-                'temp/app.js': ['src/app.module.js', 'src/classes/AudiogularState.js', 'src/classes/*.js', 'src/**/*.js', '!src/test/**/*.js']
+                src: ['src/app.module.js', 'src/classes/AudiogularState.js', 'src/classes/*.js', 'src/**/*.js', '!src/test/**/*.js'],
+                dest: 'temp/app.js'
             },
             test: {
-                'temp/app.test.js': ['src/test/**/*.js']
+                src: 'src/test/**/*.js',
+                dest: 'dist/audiogularjs.test.js'
             }
         },
 
@@ -38,8 +40,7 @@ module.exports = function (grunt) {
                 options: {
                     frameworks: ['jasmine'],
                     singleRun: true,
-                    background: true,
-                    browsers: ['PhantomJS'],
+                    browsers: ['Chrome'],
                     files: [
                         'bower_components/angularjs/angular.js',
                         'bower_components/angular-mocks/angular-mocks.js',
@@ -56,7 +57,7 @@ module.exports = function (grunt) {
                 files: ['src/**/*.js'],
                 tasks: ['concat:main', 'babel']
             },
-            test: {
+            testing: {
                 files: ['src/test/**/*.js'],
                 tasks: ['concat:test']
             }
@@ -64,6 +65,6 @@ module.exports = function (grunt) {
 
     });
     grunt.registerTask('default', 'concat files from app and store in <temp> then transform to es5 and watch changes', ['concat', 'babel', 'watch']);
-    grunt.registerTask('test', 'run the test', ['karma:unit']);
-    grunt.registerTask('build_with_test', 'build and run test', ['concat', 'babel', 'karma:unit', 'watch']);
+    grunt.registerTask('test', 'run the test', ['karma']);
+    grunt.registerTask('build_with_test', 'build and run test', ['concat', 'babel', 'karma', 'watch']);
 };
