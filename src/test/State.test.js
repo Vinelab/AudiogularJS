@@ -1,14 +1,14 @@
-describe("AudiogularState", function () {
-    it("Should create an instance of AudiogularState", function () {
-        var audioState = new AudiogularState();
+describe("State", function () {
+    it("Should create an instance of State", function () {
+        var audioState = new State();
         expect(audioState.STATE_PLAYING).toBe('playing');
         expect(audioState.STATE_STOPPED).toBe('stopped');
         expect(audioState.STATE_PAUSED).toBe('paused');
     });
 
     describe("getState", function () {
-        var audioState = new AudiogularState();
-        var currentAudio = new Audiogular();
+        var audioState = new State();
+        var currentAudio = new AudioWrapper();
         beforeEach(function () {
             currentAudio.src = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
         });
