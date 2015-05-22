@@ -4,7 +4,7 @@
  *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class AudiogularPlayer {
+class AudiogularService {
 
     /**
      * construct the class and
@@ -13,7 +13,7 @@ class AudiogularPlayer {
      */
     constructor() {
         this.audio = new Audiogular();
-        this.state = new AudiogularState();
+        this.state = new State();
     }
 
     /**
@@ -68,3 +68,6 @@ class AudiogularPlayer {
         return this.state.getState(this.audio, src) === this.state.STATE_PLAYING;
     }
 }
+
+
+angular.module("audiogularjs").service("AudiogularService", AudiogularService);

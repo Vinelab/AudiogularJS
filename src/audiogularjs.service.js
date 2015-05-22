@@ -1,1 +1,0 @@
-angular.module("audiogularjs").service("AudiogularService", AudiogularPlayer);

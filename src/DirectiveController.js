@@ -4,11 +4,11 @@
  *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class AudiogularController {
+class DirectiveController {
 
     constructor(AudiogularService, src) {
         this.AudiogularService = AudiogularService;
-        this.state = new AudiogularState();
+        this.state = new State();
 
         /**
          * The src attribute directive value
@@ -74,3 +74,10 @@ class AudiogularController {
         }
     }
 }
+
+
+/**
+ * Inject AudiogularjsService to be used in
+ *    the controller class
+ */
+DirectiveController.$inject = ['AudiogularService'];

@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         /* concat all the es6 files and put in temp/app.js */
         concat: {
             main: {
-                src: ['src/app.module.js', 'src/classes/AudiogularState.js', 'src/classes/*.js', 'src/**/*.js', '!src/test/**/*.js'],
+                src: ['src/Module.js', 'src/**/*.js', '!src/test/**/*.js'],
                 dest: 'temp/app.js'
             },
             test: {

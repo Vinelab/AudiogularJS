@@ -3,7 +3,7 @@
  *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class AudiogularState {
+class State {
 
 
     constructor() {

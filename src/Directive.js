@@ -1,5 +1,3 @@
-angular.module("audiogularjs").directive("audiogularPlay", audiogularPlay);
-
 /**
  * The audiogularPlay directive function
  *
@@ -18,17 +16,13 @@ function audiogularPlay() {
         require: "audiogularPlay",
         template: '<div ng-class="audioPlayCtrl.getCssClass()"><div>',
         bindToController: true,
-        controller: AudiogularController,
+        controller: DirectiveController,
         controllerAs: 'audioPlayCtrl',
         link: AudiogularPlayLink
     };
 }
 
-/**
- * Inject AudiogularjsService to be used in
- *    the controller class
- */
-AudiogularController.$inject = ['AudiogularService'];
+
 
 /**
  * The link function of audiogularPlay directive
@@ -47,3 +41,7 @@ function AudiogularPlayLink(scope, element, attrs, ctrls) {
         AudiogularService.reset();
     });
 }
+
+
+
+angular.module("audiogularjs").directive("audiogularPlay", audiogularPlay);
