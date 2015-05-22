@@ -12,7 +12,7 @@ class AudiogularService {
      * @var {Audio} the audio object being managed, by default init the Audio
      */
     constructor() {
-        this.audio = new Audiogular();
+        this.audio = new AudioWrapper();
         this.state = new State();
     }
 
