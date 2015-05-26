@@ -9,7 +9,8 @@
 - bower
 - grunt
 - angular.js
-- grunt-serve
+- grunt-open
+- grunt-contrib-connect
 - load-grunt-tasks
 - grunt-babel
 - grunt-contrib-concat
@@ -18,7 +19,6 @@
 - grunt-karma
 - jasmine-core
 - karma-chrome-launcher
-- karma-phantomjs-launcher
 - protractor
  
 ## Installation

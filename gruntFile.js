@@ -4,10 +4,18 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        /* serve task to run the serve on 9000*/
-        serve: {
-            options: {
-                port: 9000
+
+        connect: {
+            devserver: {
+                options: {
+                    port: 9000
+                }
+            }
+        },
+
+        open: {
+            devserver: {
+                path: 'http://localhost:9000/demo/index.html'
             }
         },
 
@@ -72,7 +80,7 @@ module.exports = function (grunt) {
             index: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too.
                 options: {
                     configFile: "src/test/e2e/conf.js",
-                    args:{
+                    args: {
                         specs: [
                             'src/test/e2e/e2e.js'
                         ]
@@ -82,7 +90,7 @@ module.exports = function (grunt) {
         }
 
     });
-    grunt.registerTask('default', 'concat files from app and store in <temp> then transform to es5 and watch changes', ['concat', 'babel', 'watch']);
+    grunt.registerTask('default', 'concat files from app and store in <temp> then transform to es5 and watch changes', ['concat', 'babel', 'connect:devserver', 'open:devserver', 'watch']);
     grunt.registerTask('test', 'run the test', ['karma']);
     grunt.registerTask('build_with_test', 'build and run test', ['concat', 'babel', 'karma', 'watch']);
 };
