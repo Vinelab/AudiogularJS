@@ -2,12 +2,11 @@ exports.config = {
     allScriptsTimeout: 11000,
 
     specs: [
-        'src/test/e2e/e2e.js'
+        'test/e2e/e2e.js'
     ],
 
     capabilities: {
-        'browserName': 'chrome',
-        'chromeOptions': { 'args': ['incognito'] }
+        'browserName': 'chrome'
     },
 
 

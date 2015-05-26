@@ -24,10 +24,6 @@ module.exports = function (grunt) {
             main: {
                 src: ['src/Module.js', 'src/**/*.js', '!src/test/**/*.js'],
                 dest: 'temp/app.js'
-            },
-            test: {
-                src: 'src/test/**/*.js',
-                dest: 'dist/audiogularjs.test.js'
             }
         },
 
@@ -53,7 +49,7 @@ module.exports = function (grunt) {
                         'bower_components/angularjs/angular.js',
                         'bower_components/angular-mocks/angular-mocks.js',
                         'dist/audiogularjs.js',
-                        'dist/audiogularjs.test.js'
+                        'test/unit/*.js'
                     ]
                 }
             }
@@ -64,25 +60,21 @@ module.exports = function (grunt) {
             main: {
                 files: ['src/**/*.js'],
                 tasks: ['concat:main', 'babel']
-            },
-            testing: {
-                files: ['src/test/**/*.js'],
-                tasks: ['concat:test']
             }
         },
 
         protractor: {
             options: {
-                configFile: "src/test/e2e/conf.js", // Default config file
+                configFile: "test/e2e/conf.js", // Default config file
                 keepAlive: true, // If false, the grunt process stops when the test fails.
                 noColor: false // If true, protractor will not use colors in its output.
             },
             index: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too.
                 options: {
-                    configFile: "src/test/e2e/conf.js",
+                    configFile: "test/e2e/conf.js",
                     args: {
                         specs: [
-                            'src/test/e2e/e2e.js'
+                            'test/e2e/e2e.js'
                         ]
                     }
                 }
@@ -91,6 +83,7 @@ module.exports = function (grunt) {
 
     });
     grunt.registerTask('default', 'concat files from app and store in <temp> then transform to es5 and watch changes', ['concat', 'babel', 'connect:devserver', 'open:devserver', 'watch']);
-    grunt.registerTask('test', 'run the test', ['karma']);
-    grunt.registerTask('build_with_test', 'build and run test', ['concat', 'babel', 'karma', 'watch']);
+    grunt.registerTask('unit', 'run the unit test', ['karma']);
+    grunt.registerTask('e2e', 'run the e2e test', ['protractor']);
+    grunt.registerTask('build_with_test', 'build and run test', ['concat', 'babel', 'unit','e2e', 'watch']);
 };
