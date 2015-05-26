@@ -61,6 +61,24 @@ module.exports = function (grunt) {
                 files: ['src/test/**/*.js'],
                 tasks: ['concat:test']
             }
+        },
+
+        protractor: {
+            options: {
+                configFile: "src/test/e2e/conf.js", // Default config file
+                keepAlive: true, // If false, the grunt process stops when the test fails.
+                noColor: false // If true, protractor will not use colors in its output.
+            },
+            index: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too.
+                options: {
+                    configFile: "src/test/e2e/conf.js",
+                    args:{
+                        specs: [
+                            'src/test/e2e/e2e.js'
+                        ]
+                    }
+                }
+            }
         }
 
     });
