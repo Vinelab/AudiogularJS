@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         /* concat all the es6 files and put in temp/app.js */
         concat: {
             main: {
-                src: ['src/Module.js', 'src/**/*.js', '!src/test/**/*.js'],
+                src: ['src/module.js', 'src/**/*.js'],
                 dest: 'temp/app.js'
             }
         },

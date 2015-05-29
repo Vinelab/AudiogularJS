@@ -27,14 +27,14 @@ function audiogularPlay() {
 /**
  * The link function of audiogularPlay directive
  *
- * @param scope
- * @param element
- * @param attrs
- * @param ctrls
+ * @param {$scope} scope
+ * @param {DOMElement} element
+ * @param {$get.Attributes} attrs
+ * @param {$controller} controller
  */
-function AudiogularPlayLink(scope, element, attrs, ctrls) {
+function AudiogularPlayLink(scope, element, attrs, controller) {
     element.on("click", function () {
-        ctrls.playOrStop();
+        controller.playOrStop();
         scope.$apply();
     });
     scope.$on('$destroy', function () {

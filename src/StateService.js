@@ -3,7 +3,7 @@
  *
  * @author Joseph El Alam <joseph@vinelab.com>
  */
-class State {
+class StateService {
 
 
     constructor() {
@@ -22,8 +22,11 @@ class State {
      * @returns {string}
      */
     getState(currentAudio, src) {
-        return (currentAudio.src === src && !currentAudio.paused) ? this.STATE_PLAYING : this.STATE_STOPPED;
+        return (currentAudio.source() === src && currentAudio.isPlaying()) ? this.STATE_PLAYING : this.STATE_STOPPED;
     }
 
 
 }
+
+
+angular.module("audiogularjs").service("StateService", StateService);

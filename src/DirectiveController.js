@@ -6,9 +6,9 @@
  */
 class DirectiveController {
 
-    constructor(AudiogularService, src) {
+    constructor(AudiogularService, StateService, src) {
         this.AudiogularService = AudiogularService;
-        this.state = new State();
+        this.state = StateService;
 
         /**
          * The src attribute directive value
@@ -32,16 +32,7 @@ class DirectiveController {
      * @return {string}
      */
     getCssClass() {
-        //return (this.AudiogularService.isPlaying(this.src))?
-        //    this.getPlayingCssClass():
-        //    this.getStoppedCssClass();
-        let state;
-        if (this.AudiogularService.isPlaying(this.src)) {
-            state = this.getPlayingCssClass();
-        } else {
-            state = this.getStoppedCssClass();
-        }
-        return state;
+        return (this.AudiogularService.isPlaying(this.src)) ? this.getPlayingCssClass() : this.getStoppedCssClass();
     }
 
     getPlayingCssClass() {
@@ -66,10 +57,23 @@ class DirectiveController {
      * @return {string}
      */
     playOrStop() {
-        if (this.AudiogularService.isPlaying(this.src)) {
-            this.AudiogularService.stop();
-        } else {
-            this.AudiogularService.stop();
+
+        /**
+         * save the state of current audio cause when we call stop
+         *    it will be always stopped in the next line
+         */
+        let isStopped = this.AudiogularService.isStopped(this.src);
+
+        /**
+         * stop the playing audio in all cases
+         */
+        this.AudiogularService.stop();
+
+        /**
+         * If given source is not for the playing audio or the audio is stopped
+         * play the audio of the given source
+         */
+        if(isStopped){
             this.AudiogularService.playBySource(this.src);
         }
     }
@@ -80,4 +84,4 @@ class DirectiveController {
  * Inject AudiogularjsService to be used in
  *    the controller class
  */
-DirectiveController.$inject = ['AudiogularService'];
+DirectiveController.$inject = ['AudiogularService', 'StateService'];

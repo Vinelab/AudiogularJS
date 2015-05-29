@@ -11,9 +11,9 @@ class AudiogularService {
      *    Initialise the audio object using HTML Audio Element Javascript object
      * @var {Audio} the audio object being managed, by default init the Audio
      */
-    constructor() {
-        this.audio = new AudioWrapper();
-        this.state = new State();
+    constructor(AudioWrapperService, StateService) {
+        this.AudioWrapperService = AudioWrapperService;
+        this.StateService = StateService;
     }
 
     /**
@@ -32,14 +32,14 @@ class AudiogularService {
      * @param {string} src
      */
     setSource(src) {
-        this.audio.src = src;
+        this.AudioWrapperService.setSource(src);
     }
 
     /**
      * Play the audio
      */
     play() {
-        this.audio.play();
+        this.AudioWrapperService.play();
     }
 
 
@@ -47,14 +47,14 @@ class AudiogularService {
      * Stop tha audio
      */
     stop() {
-        this.audio.pause();
+        this.AudioWrapperService.stop();
     }
 
     /**
      * Reset the audio
      */
     reset() {
-        this.audio.load();
+        this.AudioWrapperService.reset();
     }
 
     /**
@@ -65,9 +65,18 @@ class AudiogularService {
      * @returns {boolean}
      */
     isPlaying(src) {
-        return this.state.getState(this.audio, src) === this.state.STATE_PLAYING;
+        return this.StateService.getState(this.AudioWrapperService, src) === this.StateService.STATE_PLAYING;
+    }
+
+    isStopped(src){
+        return !this.isPlaying(src);
     }
 }
 
+/**
+ * Inject AudiogularjsService to be used in
+ *    the controller class
+ */
+AudiogularService.$inject = ['AudioWrapperService', 'StateService'];
 
 angular.module("audiogularjs").service("AudiogularService", AudiogularService);
