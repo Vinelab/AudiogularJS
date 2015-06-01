@@ -19,6 +19,7 @@
 - grunt-karma
 - jasmine-core
 - karma-chrome-launcher
+- karma-phantomjs-launcher
 - protractor
  
 ## Installation
@@ -27,10 +28,9 @@
 - `cd` to the directory
 - `npm install`
 - `bower install`
-- `grunt` *to build the project*
-- Open another terminal
-- `grunt serve` *to run the serve on port 9000*
-- go to browser http://localhost:9000/demo/index.html *to check the demo*
+- `grunt` *to build the project and start the server and open the browser*
+- `grunt unit` *for unit test*
+- `grunt e2e` *for end to end test*
 
 ## How To Use It
 
