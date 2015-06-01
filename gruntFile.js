@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                 options: {
                     frameworks: ['jasmine'],
                     singleRun: true,
-                    browsers: ['Chrome'],
+                    browsers: ['PhantomJS'],
                     files: [
                         'bower_components/angularjs/angular.js',
                         'bower_components/angular-mocks/angular-mocks.js',

@@ -1,52 +1,101 @@
 describe("Audiogular Service", function () {
+
+    /** @const */ var STATE_PLAYING = 'playing';
+    /** @const */ var STATE_STOPPED = 'stopped';
+    /** @const */ var STATE_PAUSED = 'paused';
+
     var audioWrapperService;
     var stateService;
-    var window;
     var audiogular;
-    beforeEach(module("audiogularjs"));
+    var expectedState = STATE_PLAYING;
+    var src = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
+
+    beforeEach(function () {
+        module(function ($provide) {
+            $provide.service('AudioWrapperMock', function () {
+                this.audio = jasmine.createSpy('audio');
+                this.play = jasmine.createSpy('play');
+                this.stop = jasmine.createSpy('stop');
+                this.reset = jasmine.createSpy('reset');
+                this.setSource = jasmine.createSpy('setSource');
+            });
+            $provide.service('StateMock', function () {
+                this.STATE_PLAYING = STATE_PLAYING;
+                this.STATE_STOPPED = STATE_STOPPED;
+                this.STATE_PAUSED = STATE_PAUSED;
+                this.getState = jasmine.createSpy('getState').and.callFake(function () {
+                    return expectedState;
+                });
+            });
+        });
+        module('audiogularjs');
+    });
 
     beforeEach(
         inject(
-            function (AudioWrapperService, StateService, $window) {
-                audioWrapperService = AudioWrapperService;
-                stateService = StateService;
-                window = $window;
+            function (AudioWrapperMock, StateMock) {
+                audioWrapperService = AudioWrapperMock;
+                stateService = StateMock;
             }
         )
     );
     beforeEach(function () {
         audiogular = new AudiogularService(audioWrapperService, stateService);
-
-        spyOn(audioWrapperService, "play");
     });
 
-    it(" going to call wrapper play", function () {
-
+    it("play call wrapper play", function () {
         audiogular.play();
         expect(audioWrapperService.play).toHaveBeenCalled();
     });
-    //describe("Audiogular Player class methods", function () {
-    //    var audioPlayer = new AudiogularService();
-    //    var src1 = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
-    //    var src2 = 'http://a452.phobos.apple.com/us/r1000/139/Music3/v4/90/6f/7f/906f7f01-9699-d8a1-3376-1b69af11cfb5/mzaf_5217591505439201450.plus.aac.p.m4a';
-    //    it("set source for audiogular audio", function () {
-    //        expect(audioPlayer.audio.src).toBe('');
-    //        audioPlayer.audio.src = src1;
-    //        expect(audioPlayer.audio.src).toBe(src1);
-    //        audioPlayer.audio.src = src2;
-    //        expect(audioPlayer.audio.src).toBe(src2);
-    //    });
-    //
-    //    it("Returns CssClass", function(){
-    //        audioPlayer.audio.src = src1;
-    //        expect(audioPlayer.isPlaying(src1)).toBeFalsy();
-    //        audioPlayer.audio.play();
-    //        expect(audioPlayer.isPlaying(src1)).toBeTruthy();
-    //        expect(audioPlayer.isPlaying(src2)).toBeFalsy();
-    //        audioPlayer.audio.pause();
-    //        expect(audioPlayer.isPlaying(src1)).toBeFalsy();
-    //    });
-    //
-    //
-    //});
+
+    it("stop call wrapper stop", function () {
+        audiogular.stop();
+        expect(audioWrapperService.stop).toHaveBeenCalled();
+    });
+
+    it("reset call wrapper reset", function () {
+        audiogular.reset();
+        expect(audioWrapperService.reset).toHaveBeenCalled();
+    });
+
+    it("setSource call wrapper setSource", function () {
+        audiogular.setSource(src);
+        expect(audioWrapperService.setSource).toHaveBeenCalled();
+        expect(audioWrapperService.setSource).toHaveBeenCalledWith(src);
+    });
+
+    it("playBySource call setSource than play", function () {
+        audiogular.playBySource(src);
+        expect(audioWrapperService.setSource).toHaveBeenCalled();
+        expect(audioWrapperService.setSource).toHaveBeenCalledWith(src);
+        expect(audioWrapperService.play).toHaveBeenCalled();
+    });
+
+    it("isPlaying use getState of StateService", function () {
+        audiogular.playBySource(src);
+        var isPlaying = audiogular.isPlaying(src);
+        expect(stateService.getState).toHaveBeenCalled();
+        expect(stateService.getState).toHaveBeenCalledWith(audioWrapperService,src);
+
+    });
+    it("isStopped use getState of StateService ", function () {
+        var isStopped = audiogular.isStopped(src);
+        expect(stateService.getState).toHaveBeenCalled();
+        expect(stateService.getState).toHaveBeenCalledWith(audioWrapperService,src);
+    });
+
+    it("isStopped is opposite of isPlaying", function () {
+        expect(audiogular.isStopped(src)).not.toBe(audiogular.isPlaying(src));
+    });
+
+    it("isPlaying returns true when getState of Stateservice return STATE_PLAYING", function () {
+        expectedState = STATE_PLAYING;
+        expect(audiogular.isPlaying(src)).toBeTruthy();
+    });
+
+    it("isPlaying returns false when getState of Stateservice return STATE_STOPPED", function () {
+        expectedState = STATE_STOPPED;
+        expect(audiogular.isPlaying(src)).toBeFalsy();
+    });
+
 });

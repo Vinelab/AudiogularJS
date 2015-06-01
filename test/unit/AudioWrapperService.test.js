@@ -3,8 +3,15 @@ describe("Audio wrapper", function () {
     var window = {};
     var wrapper;
     var src = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
-    beforeEach(module("audiogularjs"));
 
+    beforeEach(function () {
+        module(function ($provide) {
+            $provide.service('$window', function () {
+                this.Audio = jasmine.createSpy('Audio');
+            });
+        });
+        module('audiogularjs');
+    });
     beforeEach(
         inject(
             function ($window) {
@@ -23,10 +30,11 @@ describe("Audio wrapper", function () {
 
         beforeEach(function () {
                 wrapper = new AudioWrapperService(window);
-                spyOn(wrapper.audio, "play");
-                spyOn(wrapper.audio, "pause");
-                spyOn(wrapper.audio, "paused");
-                spyOn(wrapper.audio, "load");
+
+                wrapper.audio.play = jasmine.createSpy('play');
+                wrapper.audio.pause = jasmine.createSpy('pause');
+                wrapper.audio.paused = jasmine.createSpy('paused');
+                wrapper.audio.load = jasmine.createSpy('load');
             }
         );
 
@@ -70,5 +78,4 @@ describe("Audio wrapper", function () {
         });
     });
 
-})
-;
+});
