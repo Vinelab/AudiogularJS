@@ -9,7 +9,6 @@ class DirectiveController {
     constructor(AudiogularService, StateService, src) {
         this.AudiogularService = AudiogularService;
         this.state = StateService;
-
         /**
          * The src attribute directive value
          */
@@ -48,7 +47,7 @@ class DirectiveController {
     }
 
     getClassForState(state) {
-        return `${ this.CSS_PREFIX }-${ this.STATE_MAP[state] }`;
+        return this.CSS_PREFIX + '-' + this.STATE_MAP[state];
     }
 
     /**
@@ -73,7 +72,7 @@ class DirectiveController {
          * If given source is not for the playing audio or the audio is stopped
          * play the audio of the given source
          */
-        if(isStopped){
+        if (isStopped) {
             this.AudiogularService.playBySource(this.src);
         }
     }

@@ -1,44 +1,89 @@
-//describe('DirectiveController', function () {
-//    var scope, ctrl, audioService;
-//    var src1 = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
-//    var src2 = 'http://a452.phobos.apple.com/us/r1000/139/Music3/v4/90/6f/7f/906f7f01-9699-d8a1-3376-1b69af11cfb5/mzaf_5217591505439201450.plus.aac.p.m4a';
-//
-//    beforeEach(module("audiogularjs"));
-//
-//    beforeEach(
-//        inject(
-//            function ($controller, $rootScope, AudiogularService) {
-//                ctrl = $controller(DirectiveController, {
-//                    src: src1, AudiogularService: AudiogularService
-//                });
-//            }
-//        )
-//    );
-//
-//
-//    it('get Css Class', function () {
-//
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-stopped");
-//        ctrl.AudiogularService.playBySource(src2);
-//        ctrl.src = src1;
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-stopped");
-//
-//        ctrl.src = src2;
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-playing");
-//
-//        ctrl.AudiogularService.stop();
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-stopped");
-//    });
-//
-//    it('play Or Stop', function () {
-//
-//        ctrl.AudiogularService.playBySource(src2);
-//        ctrl.src = src1;
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-stopped");
-//        ctrl.playOrStop();
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-playing");
-//        ctrl.playOrStop();
-//        expect(ctrl.getCssClass()).toBe("audiogularjs-is-stopped");
-//    });
-//
-//});
+describe('DirectiveController', function () {
+    var ctrl;
+    var src1 = 'http://a570.phobos.apple.com/us/r1000/146/Music1/v4/97/8d/cc/978dcc1c-f6b7-7f4a-d582-c7d33c4357cd/mzaf_8021340011363027806.plus.aac.p.m4a';
+    var src2 = 'http://a452.phobos.apple.com/us/r1000/139/Music3/v4/90/6f/7f/906f7f01-9699-d8a1-3376-1b69af11cfb5/mzaf_5217591505439201450.plus.aac.p.m4a';
+    var expectedIsPlaying = true;
+
+    beforeEach(function () {
+        module(function ($provide) {
+            $provide.service('AudiogularMock', function () {
+                this.playBySource = jasmine.createSpy('playBySource');
+                this.stop = jasmine.createSpy('stop');
+                this.play = jasmine.createSpy('play');
+                this.isPlaying = jasmine.createSpy('isPlaying').and.callFake(function () {
+                    return expectedIsPlaying;
+                });
+                this.isStopped = jasmine.createSpy('isPlaying').and.callFake(function () {
+                    return !expectedIsPlaying;
+                });
+            });
+            $provide.service('StateMock', function () {
+
+                /** @const */ this.STATE_PLAYING = 'playing';
+                /** @const */ this.STATE_STOPPED = 'stopped';
+                /** @const */ this.STATE_PAUSED = 'paused';
+                this.getState = jasmine.createSpy('getState');
+            });
+        });
+        module('audiogularjs');
+    });
+
+    beforeEach(
+        inject(
+            function ($controller, AudiogularMock, StateMock) {
+                ctrl = $controller(DirectiveController, {
+                    AudiogularService: AudiogularMock,  StateService: StateMock, src: src1
+                });
+            }
+        )
+    );
+
+
+    it('getClassForState return Css depending on given state', function () {
+        expect(ctrl.getClassForState(ctrl.state.STATE_PLAYING)).toBe(ctrl.CSS_PREFIX + '-' + ctrl.STATE_MAP[ctrl.state.STATE_PLAYING]);
+        expect(ctrl.getClassForState(ctrl.state.STATE_PAUSED)).toBe(ctrl.CSS_PREFIX + '-' + ctrl.STATE_MAP[ctrl.state.STATE_PAUSED]);
+        expect(ctrl.getClassForState(ctrl.state.STATE_STOPPED)).toBe(ctrl.CSS_PREFIX + '-' + ctrl.STATE_MAP[ctrl.state.STATE_STOPPED]);
+    });
+
+    describe("check if getClassForState is called", function () {
+        beforeEach(function () {
+            spyOn(ctrl, "getClassForState");
+        });
+        it('getPlayingCssClass use getClassForState with playing state', function () {
+            ctrl.getPlayingCssClass();
+            expect(ctrl.getClassForState).toHaveBeenCalled();
+            expect(ctrl.getClassForState).toHaveBeenCalledWith(ctrl.state.STATE_PLAYING);
+        });
+
+        it('getStoppedCssClass use getClassForState with stopped state', function () {
+            ctrl.getStoppedCssClass();
+            expect(ctrl.getClassForState).toHaveBeenCalled();
+            expect(ctrl.getClassForState).toHaveBeenCalledWith(ctrl.state.STATE_STOPPED);
+        });
+
+        it('getPausedCssClass use getClassForState with paused state', function () {
+            ctrl.getPausedCssClass();
+            expect(ctrl.getClassForState).toHaveBeenCalled();
+            expect(ctrl.getClassForState).toHaveBeenCalledWith(ctrl.state.STATE_PAUSED);
+        });
+
+    });
+
+    it("getCssClass returns class depending on the state", function(){
+        expectedIsPlaying = true;
+        expect(ctrl.getCssClass()).toBe(ctrl.CSS_PREFIX + '-' + ctrl.STATE_MAP[ctrl.state.STATE_PLAYING]);
+
+        expectedIsPlaying = false;
+        expect(ctrl.getCssClass()).toBe(ctrl.CSS_PREFIX + '-' + ctrl.STATE_MAP[ctrl.state.STATE_STOPPED]);
+    });
+
+    it("play or stop", function(){
+        expectedIsPlaying = true;
+        ctrl.playOrStop();
+        expect(ctrl.AudiogularService.playBySource).not.toHaveBeenCalled();
+
+        expectedIsPlaying = false;
+        ctrl.playOrStop();
+        expect(ctrl.AudiogularService.playBySource).toHaveBeenCalled();
+    });
+});
